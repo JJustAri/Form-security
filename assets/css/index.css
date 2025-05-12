@@ -6,6 +6,8 @@ body {
     background-color: rgb(250, 232, 208);
 }
 
+/* FILTRE MODAL */
+
 #modalFilter {
     display: none;
     position: absolute;
@@ -16,6 +18,8 @@ body {
     background-color: rgba(215, 215, 215, 0.413);
 }
 
+
+/* MODAL */
 .modal {
     margin:auto;
     position: absolute;
@@ -29,6 +33,11 @@ body {
     width: 500px;
     height: 400px;
     padding: 15px;
-    background-color: aquamarine;
+    background-color: rgb(253, 181, 181);
     z-index: 10;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+#registrationModal {
+    display: none;
 }
