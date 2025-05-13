@@ -7,8 +7,8 @@ links.forEach(link => {
         e.preventDefault(); // suppréssion du comportement par défaut (ici du lien)
 
         const modal = document.getElementById(link.dataset.modal); // on récupére le modal grace a l'id
-        modal.style.display = "flex";                              // stocké dans le data-modal puis on l'affiche
-        modalFilter.style.display = "block"
+        modal.classList.add('animate-opacity');                             // stocké dans le data-modal puis on l'affiche
+        modalFilter.style.display = "block";
     })
 });
 
@@ -19,9 +19,9 @@ closebuttons.forEach(button => {
     button.addEventListener('click', function (e) {
         e.preventDefault();
 
-        const modal = button.closest('.modal')
-        modal.style.display = "none";
-        modalFilter.style.display = "none"
+        const modal = button.closest('.modal');
+        modal.classList.remove('animate-opacity');
+        modalFilter.style.display = "none";
     })
 });
 

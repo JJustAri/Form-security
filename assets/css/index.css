@@ -36,8 +36,14 @@ body {
     background-color: rgb(253, 181, 181);
     z-index: 10;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
-#registrationModal {
-    display: none;
+.animate-opacity {
+    opacity: 1;
 }
+
+/* #registrationModal {
+    display: none;
+} */
