@@ -3,7 +3,7 @@ body {
     overflow: hidden;
     width: 100vw;
     height: 100vh;
-    background-color: rgb(250, 232, 208);
+    background-color: rgb(255, 233, 199);
 }
 
 /* FILTRE MODAL */
@@ -16,11 +16,13 @@ body {
     right: 0;
     bottom: 0;
     background-color: rgba(215, 215, 215, 0.413);
+    z-index: 9;
 }
 
 
 /* MODAL */
 .modal {
+    pointer-events: none;
     margin:auto;
     position: absolute;
     top: 25%;
@@ -42,6 +44,7 @@ body {
 
 .animate-opacity {
     opacity: 1;
+    pointer-events: auto;
 }
 
 /* #registrationModal {

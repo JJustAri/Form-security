@@ -11,25 +11,32 @@
 
 <body>
 
-    <a href="" data-modal="registrationModal"> Ouvrir le modal d'inscription</a>
-    <a href="" data-modal="connectionModal"> Ouvrir le modal de connection</a>
+    <a href="#" data-modal="registrationModal"> Ouvrir le modal d'inscription</a>
+    <a href="#" data-modal="connectionModal"> Ouvrir le modal de connection</a>
 
-    <div id="modalFilter"></div>
+    
 
     <div id="registrationModal" class="modal">
-        <a href="" data-close>Fermer la modal</a>
+        <header>
+            <a href="" data-close>Fermer la modal</a>
+        </header>
         <form id="registrationForm" action="validate.php" method="POST">
             <label for="prenom"> Prenom :</label>
             <input type="text" name="prenom" data-input>
             <button type="submit"> Valider</button>
         </form>
     </div>
+    
+    <div id="modalFilter"></div>
+    
+    <div id="connectionModal" class="modal">
+        <header>
+            <a href="" data-close>Fermer la modal</a>
+        </header>
+        <form action="" method="POST">
 
-    <!-- <div id="connectionModal" class="modal" hidden>
-        <a href="" data-close>Fermer la modal</a>
-
-    </div> -->
-
+        </form>
+    </div>
 
     <script src="assets/js/script.js"></script>
 </body>
