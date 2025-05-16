@@ -3,7 +3,7 @@ body {
     overflow: hidden;
     width: 100vw;
     height: 100vh;
-    background-color: rgb(250, 232, 208);
+    background-color: rgb(255, 233, 199);
 }
 
 /* FILTRE MODAL */
@@ -16,11 +16,14 @@ body {
     right: 0;
     bottom: 0;
     background-color: rgba(215, 215, 215, 0.413);
+    backdrop-filter: blur(1px);
+    z-index: 9;
 }
 
 
 /* MODAL */
 .modal {
+    pointer-events: none;
     margin:auto;
     position: absolute;
     top: 25%;
@@ -36,8 +39,15 @@ body {
     background-color: rgb(253, 181, 181);
     z-index: 10;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
-#registrationModal {
-    display: none;
+.animate-opacity {
+    opacity: 1;
+    pointer-events: auto;
 }
+
+/* #registrationModal {
+    display: none;
+} */
