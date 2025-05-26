@@ -55,10 +55,5 @@ document.addEventListener('keydown', function (e) {
   }
 })
 
-// const form = document.getElementById('registrationForm');
 
-// form.addEventListener('submit', function (e) {
-//     e.preventDefault();
-//     const target = e.currentTarget;
-// })
 });
