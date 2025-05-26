@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form-Security</title>
-    <link href="assets/css/index.css" rel="stylesheet">
-
+    <link href="assets/css/modal.css" rel="stylesheet">
+    <link href="assets/css/form.css" rel="stylesheet">
+    <script src="assets/js/modal.js" defer></script>
+    <script src="assets/js/formValidation.js" defer></script>
 </head>
 
 <body>
@@ -20,9 +22,13 @@
         <header>
             <a href="" data-close>Fermer la modal</a>
         </header>
+
         <form id="registrationForm" action="validate.php" method="POST">
-            <label for="prenom"> Prenom :</label>
-            <input type="text" name="prenom" data-input>
+            <div>
+            <label for="firstname"> Prenom :</label>
+            <input type="text" id="firstname" name="prenom" minlength="2" required>
+            </div>
+            <div class="error" data-error></div>
             <button type="submit"> Valider</button>
         </form>
     </div>
@@ -38,8 +44,7 @@
         </form>
     </div>
 
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/formValidation.js"></script>
+
 </body>
 
 </html>
