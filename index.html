@@ -24,10 +24,10 @@
         </header>
 
         <form id="registrationForm" action="validate.php" method="POST">
-            <div>
+            
             <label for="firstname"> Prenom :</label>
-            <input type="text" id="firstname" name="prenom" minlength="2" required>
-            </div>
+            <input type="text" id="firstname" name="prenom" minlength="2" data-error = "Le prenom doit etre au minimum de 2 charactères">
+            
             <div class="error" data-error></div>
             <button type="submit"> Valider</button>
         </form>

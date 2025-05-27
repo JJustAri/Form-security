@@ -28,7 +28,13 @@ form.addEventListener('submit', function (e) { // Quand le formulaire est soumis
             validate = true; // on valide
             
         }
-        
+        else { 
+            validate = false; // sinon le formulaire est non valide 
+
+            const errorDiv = input.parentElement.querySelector('.error'); 
+            errorDiv.textContent = input.dataset.error; // Et on fait apparaitre un message d'erreur
+        }
+    
     });
 
     if (validate === true) { // si la variable est true apres les vérifications ci dessus 

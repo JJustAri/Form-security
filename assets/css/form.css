@@ -6,5 +6,5 @@ form {
 
 form .error {
     color: red;
-    display: none;
+    min-height: 5px;
 }
