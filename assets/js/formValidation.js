@@ -18,21 +18,28 @@ form.addEventListener('submit', function (e) { // Quand le formulaire est soumis
 
         
         const minlength = input.minLength; // on récupere la minLength si il y'en a une
+        const errorDiv = input.parentElement.querySelector('.error'); 
         
         //si l'élément est un texte et que sa longueur est supérieur a celle requise
         if (input.type === "text" && minlength && input.value.length >= minlength) {
+            errorDiv.textContent = "";
+            input.classList.remove('invalid');
             validate = true; // on valide 
             
         } // sinon si l'élément est un texte et qu'aucune minlength n'est précisé mais l'element au moins 1 charactere 
         else if (input.type === "text" && !minlength && input.value.length > 0){
+            errorDiv.textContent = "";
+            input.classList.remove('invalid');
             validate = true; // on valide
             
         }
         else { 
             validate = false; // sinon le formulaire est non valide 
 
-            const errorDiv = input.parentElement.querySelector('.error'); 
+            
             errorDiv.textContent = input.dataset.error; // Et on fait apparaitre un message d'erreur
+
+            input.classList.add('invalid')
         }
     
     });

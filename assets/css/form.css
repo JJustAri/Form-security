@@ -8,3 +8,7 @@ form .error {
     color: red;
     min-height: 5px;
 }
+
+input.invalid {
+    border: 1px solid red;
+}
