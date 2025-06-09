@@ -22,14 +22,12 @@ form.addEventListener('submit', function (e) { // Quand le formulaire est soumis
         
         //si l'élément est un texte et que sa longueur est supérieur a celle requise
         if (input.type === "text" && minlength && input.value.length >= minlength) {
-            errorDiv.textContent = "";
-            input.classList.remove('invalid');
+            resetInputError(input); // on appelle la fonction qui permet d'enlever les potentiels erreurs affichées
             validate = true; // on valide 
             
         } // sinon si l'élément est un texte et qu'aucune minlength n'est précisé mais l'element au moins 1 charactere 
         else if (input.type === "text" && !minlength && input.value.length > 0){
-            errorDiv.textContent = "";
-            input.classList.remove('invalid');
+            resetInputError(input); // on appelle la fonction qui permet d'enlever les potentiels erreurs affichées
             validate = true; // on valide
             
         }
@@ -46,7 +44,13 @@ form.addEventListener('submit', function (e) { // Quand le formulaire est soumis
 
     if (validate === true) { // si la variable est true apres les vérifications ci dessus 
         console.log('validé!')
-        // target.submit(); // on envoie le formulaire
+        target.submit(); // on envoie le formulaire
     }
     
 })
+
+function resetInputError(input) {
+    const errorDiv = input.parentElement.querySelector('.error'); 
+    errorDiv.textContent = "";
+            input.classList.remove('invalid');
+}
