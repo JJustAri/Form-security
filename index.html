@@ -16,7 +16,7 @@
     <a href="#" data-modal="registrationModal"> Ouvrir le modal d'inscription</a>
     <a href="#" data-modal="connectionModal"> Ouvrir le modal de connection</a>
 
-    
+
 
     <div id="registrationModal" class="modal">
         <header>
@@ -25,16 +25,23 @@
 
         <form id="registrationForm" action="validate.php" method="POST">
             <div>
-            <label for="firstname"> Prenom :</label>
-            <input type="text" id="firstname" name="prenom" minlength="2" required>
+                <label for="firstname"> Prenom :</label>
+                <input type="text" id="firstname" name="prenom" minlength="2"
+                    data-error="Le prenom doit etre au minimum de 2 charactères">
+                <div class="error"></div>
             </div>
-            <div class="error" data-error></div>
+            <div>
+                <label for="lastname">Nom :</label>
+                <input type="text" name="lastname" id="lastname" minlength="2"
+                    data-error="Le nom doit etre au minimum de 2 charactères">
+                <div class="error"></div>
+            </div>
             <button type="submit"> Valider</button>
         </form>
     </div>
-    
+
     <div id="modalFilter"></div>
-    
+
     <div id="connectionModal" class="modal">
         <header>
             <a href="" data-close>Fermer la modal</a>
