@@ -28,7 +28,6 @@ const inputs = document.querySelectorAll('form input'); // on récupere tout les
 inputs.forEach(input => {
     
     input.addEventListener('input', function () {
-        
         validateInput(input);
     })
     
@@ -66,6 +65,13 @@ function validateInput(input) {
         addInputSuccess(input);
         validate = true; // on valide
         
+        }
+
+        else if (input.type === "tel" && input.value.length === 10) {
+        resetInputError(input); // on appelle la fonction qui permet d'enlever les potentiels erreurs affichées
+        addInputSuccess(input);
+        validate = true; // on valide
+
         }
         else { 
             validate = false; // sinon le formulaire est non valide 
