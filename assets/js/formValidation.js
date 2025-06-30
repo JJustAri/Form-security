@@ -54,19 +54,12 @@ function validateInput(input) {
     let validate = false;
     
     //si l'élément est un texte et que sa longueur est supérieur a celle requise
-    if (input.type === "text" && minlength && input.value.length >= minlength) {
+    if (input.type === "text" && ((minlength && input.value.length >= minlength) || !minlength)) {
         resetInputError(input); // on appelle la fonction qui permet d'enlever les potentiels erreurs affichées
         addInputSuccess(input);
         validate = true; // on valide 
         
-    } // sinon si l'élément est un texte et qu'aucune minlength n'est précisé mais l'element au moins 1 charactere 
-    else if (input.type === "text" && !minlength && input.value.length > 0){
-        resetInputError(input); // on appelle la fonction qui permet d'enlever les potentiels erreurs affichées
-        addInputSuccess(input);
-        validate = true; // on valide
-        
-        }
-
+    } 
         else if (input.type === "tel" && input.value.length === 10) {
         resetInputError(input); // on appelle la fonction qui permet d'enlever les potentiels erreurs affichées
         addInputSuccess(input);
