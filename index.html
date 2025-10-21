@@ -11,11 +11,38 @@
 </head>
 
 <body>
+    <main>
+    <nav class="nav-bar">
+        <a href="#" data-modal="registrationModal"> Ouvrir la modale d'inscription</a>
+        <a href="#" data-modal="connectionModal"> Ouvrir la modale de connection</a>
+    </nav>
 
-    <a href="#" data-modal="registrationModal"> Ouvrir le modal d'inscription</a>
-    <a href="#" data-modal="connectionModal"> Ouvrir le modal de connection</a>
+    <div class="form-intro">
+  <h2>Formulaire sécurisé en JavaScript</h2>
+  <p>
+    Ce projet met en avant un <strong>formulaire moderne et sécurisé</strong> développé sans aucun framework,
+    uniquement avec <strong>HTML</strong>, <strong>CSS</strong> et <strong>JavaScript natif</strong>.
+  </p>
 
+  <p>
+    L’objectif est de proposer une <strong>expérience utilisateur claire, accessible et protégée</strong> :
+    les champs sont vérifiés en temps réel, les erreurs sont signalées dynamiquement et
+    les données saisies sont nettoyées pour limiter les risques d’attaques XSS.
+  </p>
 
+  <p>
+    Ce projet illustre une approche <strong>simple, réutilisable et pédagogique</strong> de la validation côté client,
+    tout en respectant les bonnes pratiques du web moderne.
+  </p>
+
+  <ul>
+    <li>✔️ Vérification des champs obligatoires</li>
+    <li>✔️ Validation d’adresse e-mail et de mot de passe</li>
+    <li>✔️ Messages d’erreur dynamiques</li>
+    <li>✔️ Sécurisation basique des entrées utilisateur</li>
+    <li>✔️ Accessibilité et lisibilité renforcées</li>
+  </ul>
+</div>
 
     <div id="registrationModal" class="modal">
         <header>
@@ -37,8 +64,7 @@
             </div>
             <div>
                 <label for="email">Email :</label>
-                <input type="email" name="email" id="email"
-                    data-error="Le nom doit etre au minimum de 2 charactères">
+                <input type="email" name="email" id="email" data-error="Le nom doit etre au minimum de 2 charactères">
                 <div class="error"></div>
             </div>
             <div>
@@ -62,7 +88,7 @@
         </form>
     </div>
 
-
+</main>
 </body>
 
 </html>
