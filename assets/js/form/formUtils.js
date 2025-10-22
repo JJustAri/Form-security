@@ -8,13 +8,7 @@ export function resetInputError(input) { // fonction appelé pour enlever les me
 
 // fonction pour la vérification des champs
 export function validateInput(input) {
-    
-    if (input.type === "submit") { // si l'élément est de type submit (generalement le bouton) on passe au suivant
-        
-        return true;
-    }
-    
-    
+      
     const minlength = input.minLength; // on récupere la minLength si il y'en a une
     const errorDiv = input.parentElement.querySelector('.error'); 
     let validate = false;
@@ -52,6 +46,10 @@ export function addInputSuccess(input) { // fonction de succes lors de la valida
 
 export function findInputType(input) {  // fonction pour lancer la fonction de la validation approprié au type de l'input
 
+    if (input.type === "submit") { // si l'élément est de type submit (generalement le bouton) on passe au suivant
+        return true;
+    }
+
     const validators = {   // on crée un objet pour stocker les fonctions de la validation selon chaque type d'input
     text : validateInputText,       //text
     tel : validateInputTel,         //tel
@@ -77,3 +75,64 @@ export function findInputType(input) {  // fonction pour lancer la fonction de l
 //         break;
 //     default : showError(input);
 // }
+
+const errorMessages = {
+    required: "Ce champ est obligatoire.",
+    minlength: min => `Minimum ${min} caractères requis.`,
+    invalid: "Format invalide."
+};
+
+export function validateInputText(input) {
+
+    let validate = true;
+    
+    emptyField(input);
+    minlengthNotValid(input);
+
+    if (validate === true) {
+        validateInput(input);
+    }
+    
+
+
+    return validate;
+}
+
+function emptyField(input) {
+
+    const errorDiv = input.parentElement.querySelector('.error');
+
+if (input.value.trim() === "") { // si le champ est vide
+
+        errorDiv.textContent = errorMessages.required; // on affiche un message d'erreur
+        input.classList.add('invalid'); // on ajoute la classe invalid pour changer le Css
+
+        validate = false;
+    }
+
+    return validate;
+}
+
+function minlengthNotValid(input) {
+    
+    const errorDiv = input.parentElement.querySelector('.error');
+    const minlength = input.minLength; // on récupere la minLength si il y'en a une
+
+if (minlength > 0 && input.value.length < minlength) { // Si il ya une longueur minimale et que la longueur du champ
+                                                            // est plus petite que la longueur minimale
+        errorDiv.textContent = errorMessages.minlength(minlength);     // message d'erreur
+        input.classList.add('invalid');
+
+        validate = false;
+    }
+
+    return validate;
+}
+
+
+function validateInput(input) {
+    
+        resetInputError(input); // on appelle la fonction qui permet d'enlever les potentiels erreurs affichées
+        addInputSuccess(input);
+        validate = true; // on valide 
+    }

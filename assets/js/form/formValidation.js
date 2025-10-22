@@ -14,9 +14,7 @@ form.addEventListener('submit', function (e) { // Quand le formulaire est soumis
     Array.from(inputs).forEach(input => { // On copie les elements de l'objet dans un tableau puis 
                                           // on effectue les vérification ci dessous pour chaque élément
         
-        if (utils.validateInput(input) === false) { // si un des champs n'est pas valide validate = false
-            validate = false; 
-        }
+        utils.findInputType(input);
     });
 
     if (validate === true) { // si la variable est true apres les vérifications ci dessus 
