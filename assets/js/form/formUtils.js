@@ -94,6 +94,7 @@ export function validateInputText(input) { // fonction de validation des inputs 
 
     if (validate === true) { // si toute les fonctions renvoie true 
         validateInput(input);  // on valide l'input visuellement
+
     }
     
     return validate; 
@@ -172,3 +173,13 @@ function minLengthTel(input) { // fonction pour vérifier qu'il s'agit bien d'un
     return validate;
 }
     
+export function escapeHtml(input) { // fonction pour empecher les caracteres spéciaux et donc les attaques XSS
+    return input
+
+      .replace(/&/g, "&amp;") // Remplace & par &amp;
+      .replace(/</g, "&lt;") // Remplace < par &lt;
+      .replace(/>/g, "&gt;") // Remplace > par &gt;
+      .replace(/"/g, "&quot;") // Remplace " par &quot;
+      .replace(/'/g, "&#039"); // Remplace ' par &#039;
+}
+

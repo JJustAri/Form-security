@@ -10,11 +10,18 @@ form.addEventListener('submit', function (e) { // Quand le formulaire est soumis
     const target = e.currentTarget; // On récupere la cible de l'evenement (ici le formulaire)
     const inputs = target.elements; // On récupere dans un objet tout les elements du formulaire
     let validate = true; // On déclare une variable qui nous servira a confirmer si la formulaire est valide
-    
+    const sanitizeData = {}; // objet pour contenir les données sécurisé du formulaire
+
     Array.from(inputs).forEach(input => { // On copie les elements de l'objet dans un tableau puis 
                                           // on effectue les vérification ci dessous pour chaque élément
         
-        utils.findInputType(input);
+        validate = findInputType(input) && validate; // on met a jour la variable validate a chaque input
+                                                     // et on l'empeche de changer de changer si un des champs est false
+        if (input.name && findInputType(input)) { // si le champs existe et est valide 
+        // pour chaque champs on ajoute sa valeur sécurisé a l'objet
+        sanitizeData[input.name] = escapeHtml(input.value);
+    }
+        
     });
 
     if (validate === true) { // si la variable est true apres les vérifications ci dessus 
@@ -25,16 +32,18 @@ form.addEventListener('submit', function (e) { // Quand le formulaire est soumis
 })
 
 
-const inputs = document.querySelectorAll('form input'); // on récupere tout les inputs
+// const inputs = document.querySelectorAll('form input'); // on récupere tout les inputs
 
-inputs.forEach(input => {
+// inputs.forEach(input => {
     
-    input.addEventListener('input', function () {
-        utils.validateInput(input);
-    })
+//     input.addEventListener('input', function () {
+//         utils.validateInput(input);
+//     })
     
     
-});
+// });
+
+return sanitizeData;
 }
 
 
