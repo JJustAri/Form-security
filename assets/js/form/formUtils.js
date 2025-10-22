@@ -5,40 +5,6 @@ export function resetInputError(input) { // fonction appelé pour enlever les me
             input.classList.remove('invalid');
 }
 
-
-// fonction pour la vérification des champs
-export function validateInput(input) {
-      
-    const minlength = input.minLength; // on récupere la minLength si il y'en a une
-    const errorDiv = input.parentElement.querySelector('.error'); 
-    let validate = false;
-    
-    //si l'élément est un texte et que sa longueur est supérieur a celle requise
-    if (input.type === "text" && ((minlength && input.value.length >= minlength) || !minlength)) {
-        resetInputError(input); // on appelle la fonction qui permet d'enlever les potentiels erreurs affichées
-        addInputSuccess(input);
-        validate = true; // on valide 
-        
-    } 
-        else if (input.type === "tel" && input.value.length === 10) {
-        resetInputError(input); // on appelle la fonction qui permet d'enlever les potentiels erreurs affichées
-        addInputSuccess(input);
-        validate = true; // on valide
-
-        }
-        else { 
-            validate = false; // sinon le formulaire est non valide 
-
-            
-            errorDiv.textContent = input.dataset.error; // Et on fait apparaitre un message d'erreur
-
-            input.classList.add('invalid'); // on ajoute la classe invalid pour changer le Css
-        }
-
-        return validate;
-
-}
-
 export function addInputSuccess(input) { // fonction de succes lors de la validation d'un input
     input.classList.add('valid');
     
@@ -86,8 +52,9 @@ const errorMessages = {
 export function validateInputText(input) { // fonction de validation des inputs text 
 
     let validate = true;
-    
-    if (!emptyField(input) || !minlengthNotValid(input)) {  // si une des fonctions renvoie false
+    let cleanInput = sanitizeTextInput(input);
+
+    if (!emptyField(cleanInput) || !minlengthNotValid(cleanInput)) {  // si une des fonctions renvoie false
 
         validate = false;   // on invalide 
     }
@@ -171,6 +138,38 @@ function minLengthTel(input) { // fonction pour vérifier qu'il s'agit bien d'un
     }
     
     return validate;
+}
+
+function validateInputMail(input) { // fonction de validation des inputs tel
+
+    let validate = true;
+
+    let cleanInput = sanitizeEmailInput(input);
+
+    if (!emptyField(cleanInput)) { // si une des fonctions renvoie false 
+
+        validate = false;  // on invalide
+    }
+
+    if (validate === true) {
+        validateInput(input);
+    }
+
+    return validate;
+}
+
+function sanitizeTextInput(input) {
+
+input.value = input.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s-]/g, "");
+
+return input;
+}
+
+function sanitizeEmailInput(input) {
+
+    input.value = input.value.replace(/[^A-Za-z0-9@._-]/g, "");
+
+    return input;
 }
     
 export function escapeHtml(input) { // fonction pour empecher les caracteres spéciaux et donc les attaques XSS

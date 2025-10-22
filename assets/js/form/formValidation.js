@@ -32,16 +32,16 @@ form.addEventListener('submit', function (e) { // Quand le formulaire est soumis
 })
 
 
-// const inputs = document.querySelectorAll('form input'); // on récupere tout les inputs
+const inputs = document.querySelectorAll('form input'); // on récupere tout les inputs
 
-// inputs.forEach(input => {
+inputs.forEach(input => {
     
-//     input.addEventListener('input', function () {
-//         utils.validateInput(input);
-//     })
+    input.addEventListener('input', function () {
+        utils.findInputType(input);
+    })
     
     
-// });
+});
 
 return sanitizeData;
 }
