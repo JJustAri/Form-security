@@ -79,27 +79,29 @@ export function findInputType(input) {  // fonction pour lancer la fonction de l
 const errorMessages = {
     required: "Ce champ est obligatoire.",
     minlength: min => `Minimum ${min} caractères requis.`,
-    invalid: "Format invalide."
+    invalid: "Format invalide.",
+    minLengthTel: "Le numéro doit contenir 10 chiffres."
 };
 
-export function validateInputText(input) {
+export function validateInputText(input) { // fonction de validation des inputs text 
 
     let validate = true;
     
-    emptyField(input);
-    minlengthNotValid(input);
+    if (!emptyField(input) || !minlengthNotValid(input)) {  // si une des fonctions renvoie false
 
-    if (validate === true) {
-        validateInput(input);
+        validate = false;   // on invalide 
+    }
+
+    if (validate === true) { // si toute les fonctions renvoie true 
+        validateInput(input);  // on valide l'input visuellement
     }
     
-
-
-    return validate;
+    return validate; 
 }
 
-function emptyField(input) {
+function emptyField(input) { // fonction pour vérifier si le champ n'est pas vide
 
+    let validate = true;
     const errorDiv = input.parentElement.querySelector('.error');
 
 if (input.value.trim() === "") { // si le champ est vide
@@ -113,8 +115,9 @@ if (input.value.trim() === "") { // si le champ est vide
     return validate;
 }
 
-function minlengthNotValid(input) {
+function minlengthNotValid(input) { // fonction pour vérifier si la longueur minimale est respectée
     
+    let validate = true;
     const errorDiv = input.parentElement.querySelector('.error');
     const minlength = input.minLength; // on récupere la minLength si il y'en a une
 
@@ -130,9 +133,42 @@ if (minlength > 0 && input.value.length < minlength) { // Si il ya une longueur 
 }
 
 
-function validateInput(input) {
+function validateInput(input) { // fonction de validation des inputs en apparence (css)
     
         resetInputError(input); // on appelle la fonction qui permet d'enlever les potentiels erreurs affichées
         addInputSuccess(input);
         validate = true; // on valide 
     }
+
+function validateInputTel(input) { // fonction de validation des inputs tel
+
+    let validate = true;
+
+    if (!emptyField(input) || !minLengthTel(input)) { // si une des fonctions renvoie false 
+
+        validate = false;  // on invalide
+    }
+
+    if (validate === true) {
+        validateInput(input);
+    }
+
+    return validate;
+}
+
+function minLengthTel(input) { // fonction pour vérifier qu'il s'agit bien d'un numéro de telephone 
+
+    let validate = true; 
+    let inputSanitize = input.replace(/\D/g, ""); // on nettoie le champ en n'acceptant que des chiffres
+
+    if  (inputSanitize.value.length !== 10) { // si le champ
+
+        errorDiv.textContent = errorMessages.minLengthTel;     // message d'erreur
+        input.classList.add('invalid');
+
+        validate = false;
+    }
+    
+    return validate;
+}
+    
