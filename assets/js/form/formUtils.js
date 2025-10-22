@@ -45,7 +45,35 @@ export function validateInput(input) {
 
 }
 
-export function addInputSuccess(input) {
+export function addInputSuccess(input) { // fonction de succes lors de la validation d'un input
     input.classList.add('valid');
     
 }
+
+export function findInputType(input) {  // fonction pour lancer la fonction de la validation approprié au type de l'input
+
+    const validators = {   // on crée un objet pour stocker les fonctions de la validation selon chaque type d'input
+    text : validateInputText,       //text
+    tel : validateInputTel,         //tel
+    email : validateInputMail,      //email
+};
+
+    const validator = validators[input.type] || showError;  // On va récuperer la fonction correspondante grace au type de l'input 
+                                                            // ou on envoie une erreur avec la fonction showError si le type n'est pas supporté
+    return validator(input);   // On retourne le resultat de la fonction (true / false) pour valider ou non l'input
+
+}
+
+// DEUXIEME SOLUTION POSSIBLE
+// switch (input.type) {
+//     case "text" :
+//         validateInputText(input);
+//         break;
+//     case "tel" :
+//         validateInputTel(input);
+//         break;
+//     case "email" :
+//         validateInputMail(input);
+//         break;
+//     default : showError(input);
+// }
