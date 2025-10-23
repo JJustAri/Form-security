@@ -42,11 +42,11 @@ export function findInputType(input) {  // fonction pour lancer la fonction de l
 //     default : showError(input);
 // }
 
-const errorMessages = {
+const errorMessages = {  // Objet pour contenir les messages d'erreurs
     required: "Ce champ est obligatoire.",
     minlength: min => `Minimum ${min} caractères requis.`,
     invalid: "Format invalide.",
-    minLengthTel: "Le numéro doit contenir 10 chiffres."
+    errorTel: "Le numéro doit contenir seulement 10 chiffres."
 };
 
 export function validateInputText(input) { // fonction de validation des inputs text 
@@ -112,7 +112,7 @@ function validateInputTel(input) { // fonction de validation des inputs tel
 
     let validate = true;
 
-    if (!emptyField(input) || !minLengthTel(input)) { // si une des fonctions renvoie false 
+    if (!emptyField(input) || !sanitizeTelInput(input)) { // si une des fonctions renvoie false 
 
         validate = false;  // on invalide
     }
@@ -124,21 +124,23 @@ function validateInputTel(input) { // fonction de validation des inputs tel
     return validate;
 }
 
-function minLengthTel(input) { // fonction pour vérifier qu'il s'agit bien d'un numéro de telephone 
+function sanitizeTelInput(input) { // fonction pour vérifier qu'il s'agit bien d'un numéro de telephone 
 
     let validate = true; 
-    let inputSanitize = input.replace(/\D/g, ""); // on nettoie le champ en n'acceptant que des chiffres
+    const phoneRegex = /^\d{10}$/;
 
-    if  (inputSanitize.value.length !== 10) { // si le champ
+    if (!phoneRegex.test(input.value)) {
 
-        errorDiv.textContent = errorMessages.minLengthTel;     // message d'erreur
+        errorDiv.textContent = errorMessages.errorTel;     // message d'erreur
         input.classList.add('invalid');
 
         validate = false;
     }
+
+        return validate;
+    }
     
-    return validate;
-}
+    
 
 function validateInputMail(input) { // fonction de validation des inputs tel
 
@@ -158,16 +160,23 @@ function validateInputMail(input) { // fonction de validation des inputs tel
     return validate;
 }
 
-function sanitizeTextInput(input) {
+function sanitizeTextInput(input) { //fonction de netoyage des inputs text
 
 input.value = input.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s-]/g, "");
 
 return input;
 }
 
-function sanitizeEmailInput(input) {
+function sanitizeEmailInput(input) { //fonction de netoyage des inputs email
 
     input.value = input.value.replace(/[^A-Za-z0-9@._-]/g, "");
+
+    return input;
+}
+
+function sanitizeTelInput(input) {
+
+    input.value = input.value.replace(/^\d{10}$/)
 
     return input;
 }
