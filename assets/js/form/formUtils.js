@@ -43,18 +43,19 @@ export function findInputType(input) {  // fonction pour lancer la fonction de l
 // }
 
 const errorMessages = {  // Objet pour contenir les messages d'erreurs
-    required: "Ce champ est obligatoire.",
+    required: "❌ Ce champ est obligatoire.",
     minlength: min => `Minimum ${min} caractères requis.`,
-    invalid: "Format invalide.",
-    errorTel: "Le numéro doit contenir seulement 10 chiffres."
+    invalid: "❌ Format invalide.",
+    errorTel: "❌ Le numéro doit contenir seulement 10 chiffres.",
+    errorText: "❌ Le champ ne doit contenir que des lettres, des espaces ou des tirets.",
+    errorEmail: `❌ L’adresse email n’est pas valide. Veuillez vérifier le format (ex: utilisateur@domaine.com)`
 };
 
 export function validateInputText(input) { // fonction de validation des inputs text 
-
+    
     let validate = true;
-    let cleanInput = sanitizeTextInput(input);
 
-    if (!emptyField(cleanInput) || !minlengthNotValid(cleanInput)) {  // si une des fonctions renvoie false
+    if (!emptyField(input) || !minlengthNotValid(input) || !sanitizeTextInput(input)) {  // si une des fonctions renvoie false
 
         validate = false;   // on invalide 
     }
@@ -91,9 +92,8 @@ function minlengthNotValid(input) { // fonction pour vérifier si la longueur mi
 
 if (minlength > 0 && input.value.length < minlength) { // Si il ya une longueur minimale et que la longueur du champ
                                                             // est plus petite que la longueur minimale
-        errorDiv.textContent = errorMessages.minlength(minlength);     // message d'erreur
-        input.classList.add('invalid');
-
+        errorDiv.textContent = errorMessages.minlength(minlength); // on affiche un message d'erreur
+        input.classList.add('invalid'); // on ajoute la classe invalid pour changer le Css
         validate = false;
     }
 
@@ -105,13 +105,11 @@ function validateInput(input) { // fonction de validation des inputs en apparenc
     
         resetInputError(input); // on appelle la fonction qui permet d'enlever les potentiels erreurs affichées
         addInputSuccess(input);
-        validate = true; // on valide 
     }
 
-function validateInputTel(input) { // fonction de validation des inputs tel
-
+function validateInputTel(input) { // fonction de validation des inputs tel    let validate = true;
     let validate = true;
-
+    
     if (!emptyField(input) || !sanitizeTelInput(input)) { // si une des fonctions renvoie false 
 
         validate = false;  // on invalide
@@ -127,13 +125,14 @@ function validateInputTel(input) { // fonction de validation des inputs tel
 function sanitizeTelInput(input) { // fonction pour vérifier qu'il s'agit bien d'un numéro de telephone 
 
     let validate = true; 
+    const errorDiv = input.parentElement.querySelector('.error');
     const phoneRegex = /^\d{10}$/;
+    input.value = input.value.replace(/\s/g, "");
 
     if (!phoneRegex.test(input.value)) {
 
         errorDiv.textContent = errorMessages.errorTel;     // message d'erreur
         input.classList.add('invalid');
-
         validate = false;
     }
 
@@ -146,9 +145,7 @@ function validateInputMail(input) { // fonction de validation des inputs tel
 
     let validate = true;
 
-    let cleanInput = sanitizeEmailInput(input);
-
-    if (!emptyField(cleanInput)) { // si une des fonctions renvoie false 
+    if (!emptyField(input) || !sanitizeEmailInput(input)) { // si une des fonctions renvoie false 
 
         validate = false;  // on invalide
     }
@@ -162,23 +159,36 @@ function validateInputMail(input) { // fonction de validation des inputs tel
 
 function sanitizeTextInput(input) { //fonction de netoyage des inputs text
 
-input.value = input.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s-]/g, "");
+    let validate = true; 
+    const errorDiv = input.parentElement.querySelector('.error');
+    const textRegex = /[^A-Za-zÀ-ÖØ-öø-ÿ\s-]/;
+    input.value = input.value.trim();
 
-return input;
+    if (textRegex.test(input.value)) {
+
+        errorDiv.textContent = errorMessages.errorText;     // message d'erreur
+        input.classList.add('invalid');
+        validate = false;
+    }
+
+        return validate;
 }
 
 function sanitizeEmailInput(input) { //fonction de netoyage des inputs email
 
-    input.value = input.value.replace(/[^A-Za-z0-9@._-]/g, "");
+    let validate = true; 
+    const errorDiv = input.parentElement.querySelector('.error');
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    input.value = input.value.trim();
 
-    return input;
-}
+    if (!emailRegex.test(input.value)) {
 
-function sanitizeTelInput(input) {
+        errorDiv.textContent = errorMessages.errorEmail;     // message d'erreur
+        input.classList.add('invalid');
+        validate = false;
+    }
 
-    input.value = input.value.replace(/^\d{10}$/)
-
-    return input;
+        return validate;
 }
     
 export function escapeHtml(input) { // fonction pour empecher les caracteres spéciaux et donc les attaques XSS

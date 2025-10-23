@@ -3,6 +3,7 @@ import * as utils from './formUtils.js';
 export function initFormValidation() {
 
 const form = document.getElementById('registrationForm'); // On récupere le formulaire
+const sanitizeData = {}; // objet pour contenir les données sécurisé du formulaire
 
 form.addEventListener('submit', function (e) { // Quand le formulaire est soumis
     e.preventDefault();  // On enleve le comportement par défaut
@@ -10,16 +11,15 @@ form.addEventListener('submit', function (e) { // Quand le formulaire est soumis
     const target = e.currentTarget; // On récupere la cible de l'evenement (ici le formulaire)
     const inputs = target.elements; // On récupere dans un objet tout les elements du formulaire
     let validate = true; // On déclare une variable qui nous servira a confirmer si la formulaire est valide
-    const sanitizeData = {}; // objet pour contenir les données sécurisé du formulaire
 
     Array.from(inputs).forEach(input => { // On copie les elements de l'objet dans un tableau puis 
                                           // on effectue les vérification ci dessous pour chaque élément
         
-        validate = findInputType(input) && validate; // on met a jour la variable validate a chaque input
+        validate = utils.findInputType(input) && validate; // on met a jour la variable validate a chaque input
                                                      // et on l'empeche de changer de changer si un des champs est false
-        if (input.name && findInputType(input)) { // si le champs existe et est valide 
+        if (input.name && utils.findInputType(input)) { // si le champs existe et est valide 
         // pour chaque champs on ajoute sa valeur sécurisé a l'objet
-        sanitizeData[input.name] = escapeHtml(input.value);
+        sanitizeData[input.name] = utils.escapeHtml(input.value);
     }
         
     });
