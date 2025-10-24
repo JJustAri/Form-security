@@ -4,7 +4,9 @@ export function initFormValidation() {
 
 const form = document.getElementById('registrationForm'); // On récupere le formulaire
 const sanitizeData = {}; // objet pour contenir les données sécurisé du formulaire
+const successMessage = document.querySelector('.success-message');
 
+if (form) {
 form.addEventListener('submit', function (e) { // Quand le formulaire est soumis
     e.preventDefault();  // On enleve le comportement par défaut
 
@@ -26,7 +28,11 @@ form.addEventListener('submit', function (e) { // Quand le formulaire est soumis
 
     if (validate === true) { // si la variable est true apres les vérifications ci dessus 
         console.log('validé!')
-        target.submit(); // on envoie le formulaire
+        successMessage.classList.add('show');
+        setTimeout(() => {
+            successMessage.classList.remove('show');
+        }, 3000);
+        // target.submit(); // on envoie le formulaire  <- mis en commentaire car cela recharge la page et empeche les animations
     }
     
 })
@@ -44,6 +50,7 @@ inputs.forEach(input => {
 });
 
 return sanitizeData;
+}
 }
 
 

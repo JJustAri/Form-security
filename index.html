@@ -7,6 +7,7 @@
     <title>Form-Security</title>
     <link href="assets/css/modal.css" rel="stylesheet">
     <link href="assets/css/form.css" rel="stylesheet">
+    <link href="assets/css/index.css" rel="stylesheet">
     <script type="module" src="assets/js/main.js" defer></script>
 </head>
 
@@ -17,6 +18,7 @@
             <a href="#" data-modal="connectionModal"> Ouvrir la modale de connection</a>
         </nav>
 
+        <div class="success-message"><p>Formulaire envoyé avec succès !</p></div>
         <div class="form-intro">
             <h2>Formulaire sécurisé en JavaScript</h2>
             <p>
@@ -48,32 +50,28 @@
 
         <div id="registrationModal" class="modal">
             <header>
-                <a href="" data-close>Fermer la modal</a>
+                <a href="" data-close>Fermer la modale</a>
             </header>
 
-            <form id="registrationForm" action="validate.php" method="POST">
+            <form id="registrationForm" action="#" method="">
                 <div>
                     <label for="firstname"> Prenom :</label>
-                    <input type="text" id="firstname" name="prenom" minlength="2"
-                        data-error="Le prenom doit etre au minimum de 2 charactères">
+                    <input type="text" id="firstname" name="prenom" minlength="2">
                     <div class="error"></div>
                 </div>
                 <div>
                     <label for="lastname">Nom :</label>
-                    <input type="text" name="lastname" id="lastname" minlength="2"
-                        data-error="Le nom doit etre au minimum de 2 charactères">
+                    <input type="text" name="lastname" id="lastname" minlength="2">
                     <div class="error"></div>
                 </div>
                 <div>
                     <label for="email">Email :</label>
-                    <input type="email" name="email" id="email"
-                        data-error="Le nom doit etre au minimum de 2 charactères">
+                    <input type="email" name="email" id="email">
                     <div class="error"></div>
                 </div>
                 <div>
                     <label for="tel">Telephone :</label>
-                    <input type="tel" name="tel" id="tel" minlength="2"
-                        data-error="Le numéro doit comporter 10 charactères">
+                    <input type="tel" name="tel" id="tel" minlength="2">
                     <div class="error"></div>
                 </div>
                 <button type="submit"> Valider</button>

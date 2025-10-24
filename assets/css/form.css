@@ -1,7 +1,10 @@
 form {
+    max-width: 50%;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    align-items: end;
+    margin-right: 10%;
 }
 
 form .error {
@@ -15,4 +18,17 @@ input.invalid {
 
 .valid {
     border: 2px solid green;
+}
+
+
+
+[data-close] {
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: 500;
+    color: whitesmoke;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding:5px;
+    background-color: #3A6EA5;
 }
