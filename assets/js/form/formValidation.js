@@ -49,6 +49,28 @@ inputs.forEach(input => {
     
 });
 
+const passwordToggle = document.getElementById('passwordToggle');
+const passwordInput = document.querySelector('input#password');
+let hidden = true;
+
+passwordToggle.addEventListener('click', function () {
+
+if (hidden === true) {
+
+    passwordInput.type = "text";
+    passwordToggle.textContent = "Cacher";
+    hidden = false;
+}
+
+else if (hidden === false) {
+
+    passwordInput.type = "password";
+    passwordToggle.textContent = "Afficher";
+    hidden = true;
+}
+
+})
+
 return sanitizeData;
 }
 }

@@ -20,6 +20,7 @@ export function findInputType(input) {  // fonction pour lancer la fonction de l
     text : validateInputText,       //text
     tel : validateInputTel,         //tel
     email : validateInputMail,      //email
+    password : validateInputPassword // password
 };
 
     const validator = validators[input.type] || showError;  // On va récuperer la fonction correspondante grace au type de l'input 
@@ -51,6 +52,46 @@ const errorMessages = {  // Objet pour contenir les messages d'erreurs
     errorEmail: `❌ L’adresse email n’est pas valide. Veuillez vérifier le format (ex: utilisateur@domaine.com)`
 };
 
+
+function emptyField(input) { // fonction pour vérifier si le champ n'est pas vide
+    
+    let validate = true;
+    const errorDiv = input.parentElement.querySelector('.error');
+    
+    if (input.value.trim() === "") { // si le champ est vide
+        
+        errorDiv.textContent = errorMessages.required; // on affiche un message d'erreur
+        input.classList.add('invalid'); // on ajoute la classe invalid pour changer le Css
+        
+        validate = false;
+    }
+
+    return validate;
+}
+
+function minlengthNotValid(input) { // fonction pour vérifier si la longueur minimale est respectée
+    
+    let validate = true;
+    const errorDiv = input.parentElement.querySelector('.error');
+    const minlength = input.minLength; // on récupere la minLength si il y'en a une
+    
+    if (minlength > 0 && input.value.length < minlength) { // Si il ya une longueur minimale et que la longueur du champ
+        // est plus petite que la longueur minimale
+        errorDiv.textContent = errorMessages.minlength(minlength); // on affiche un message d'erreur
+        input.classList.add('invalid'); // on ajoute la classe invalid pour changer le Css
+        validate = false;
+    }
+    
+    return validate;
+}
+
+
+function validateInput(input) { // fonction de validation des inputs en apparence (css)
+    
+    resetInputError(input); // on appelle la fonction qui permet d'enlever les potentiels erreurs affichées
+    addInputSuccess(input);
+}
+
 export function validateInputText(input) { // fonction de validation des inputs text 
     
     let validate = true;
@@ -68,45 +109,6 @@ export function validateInputText(input) { // fonction de validation des inputs 
     return validate; 
 }
 
-function emptyField(input) { // fonction pour vérifier si le champ n'est pas vide
-
-    let validate = true;
-    const errorDiv = input.parentElement.querySelector('.error');
-
-if (input.value.trim() === "") { // si le champ est vide
-
-        errorDiv.textContent = errorMessages.required; // on affiche un message d'erreur
-        input.classList.add('invalid'); // on ajoute la classe invalid pour changer le Css
-
-        validate = false;
-    }
-
-    return validate;
-}
-
-function minlengthNotValid(input) { // fonction pour vérifier si la longueur minimale est respectée
-    
-    let validate = true;
-    const errorDiv = input.parentElement.querySelector('.error');
-    const minlength = input.minLength; // on récupere la minLength si il y'en a une
-
-if (minlength > 0 && input.value.length < minlength) { // Si il ya une longueur minimale et que la longueur du champ
-                                                            // est plus petite que la longueur minimale
-        errorDiv.textContent = errorMessages.minlength(minlength); // on affiche un message d'erreur
-        input.classList.add('invalid'); // on ajoute la classe invalid pour changer le Css
-        validate = false;
-    }
-
-    return validate;
-}
-
-
-function validateInput(input) { // fonction de validation des inputs en apparence (css)
-    
-        resetInputError(input); // on appelle la fonction qui permet d'enlever les potentiels erreurs affichées
-        addInputSuccess(input);
-    }
-
 function validateInputTel(input) { // fonction de validation des inputs tel    let validate = true;
     let validate = true;
     
@@ -120,6 +122,36 @@ function validateInputTel(input) { // fonction de validation des inputs tel    l
     }
 
     return validate;
+}
+
+function validateInputMail(input) { // fonction de validation des inputs tel
+
+    let validate = true;
+
+    if (!emptyField(input) || !sanitizeEmailInput(input)) { // si une des fonctions renvoie false 
+
+        validate = false;  // on invalide
+    }
+
+    if (validate === true) {
+        validateInput(input);
+    }
+
+    return validate;
+}
+
+function validateInputPassword(input) {
+
+    let validate = true;
+
+    if (!emptyField(input) ) { // si une des fonctions renvoie false 
+
+        validate = false;  // on invalide
+    }
+
+    if (validate === true) {
+        validateInput(input);
+    }
 }
 
 function sanitizeTelInput(input) { // fonction pour vérifier qu'il s'agit bien d'un numéro de telephone 
@@ -141,21 +173,6 @@ function sanitizeTelInput(input) { // fonction pour vérifier qu'il s'agit bien 
     
     
 
-function validateInputMail(input) { // fonction de validation des inputs tel
-
-    let validate = true;
-
-    if (!emptyField(input) || !sanitizeEmailInput(input)) { // si une des fonctions renvoie false 
-
-        validate = false;  // on invalide
-    }
-
-    if (validate === true) {
-        validateInput(input);
-    }
-
-    return validate;
-}
 
 function sanitizeTextInput(input) { //fonction de netoyage des inputs text
 
