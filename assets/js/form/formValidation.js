@@ -42,29 +42,29 @@ const inputs = document.querySelectorAll('form input'); // on récupere tout les
 
 inputs.forEach(input => {
     
-    input.addEventListener('input', function () {
+    input.addEventListener('input', function () { // on effectue la vérification a chaque input de l'utilisateur
         utils.findInputType(input);
     })
     
     
 });
 
-const passwordToggle = document.getElementById('passwordToggle');
+const passwordToggle = document.getElementById('passwordToggle'); // on recupère le bouton pour afficher / cacher le mdp
 const passwordInput = document.querySelector('input#password');
 let hidden = true;
 
-passwordToggle.addEventListener('click', function () {
+passwordToggle.addEventListener('click', function () {  // Quand l'utilisateur click sur le bouton
 
-if (hidden === true) {
+if (hidden === true) { // si les caractères sont cachés
 
-    passwordInput.type = "text";
+    passwordInput.type = "text";         //on les affiche
     passwordToggle.textContent = "Cacher";
     hidden = false;
 }
 
-else if (hidden === false) {
+else if (hidden === false) { // si les caractères sont visible
 
-    passwordInput.type = "password";
+    passwordInput.type = "password";     // on les cache  
     passwordToggle.textContent = "Afficher";
     hidden = true;
 }

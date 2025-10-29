@@ -16,6 +16,8 @@ export function findInputType(input) {  // fonction pour lancer la fonction de l
         return true;
     }
 
+    const inputType = input.dataset.type || input.type;
+
     const validators = {   // on crée un objet pour stocker les fonctions de la validation selon chaque type d'input
     text : validateInputText,       //text
     tel : validateInputTel,         //tel
@@ -23,7 +25,7 @@ export function findInputType(input) {  // fonction pour lancer la fonction de l
     password : validateInputPassword // password
 };
 
-    const validator = validators[input.type] || showError;  // On va récuperer la fonction correspondante grace au type de l'input 
+    const validator = validators[inputType] || showError;  // On va récuperer la fonction correspondante grace au type de l'input 
                                                             // ou on envoie une erreur avec la fonction showError si le type n'est pas supporté
     return validator(input);   // On retourne le resultat de la fonction (true / false) pour valider ou non l'input
 
@@ -49,7 +51,8 @@ const errorMessages = {  // Objet pour contenir les messages d'erreurs
     invalid: "❌ Format invalide.",
     errorTel: "❌ Le numéro doit contenir seulement 10 chiffres.",
     errorText: "❌ Le champ ne doit contenir que des lettres, des espaces ou des tirets.",
-    errorEmail: `❌ L’adresse email n’est pas valide. Veuillez vérifier le format (ex: utilisateur@domaine.com)`
+    errorEmail: `❌ L’adresse email n’est pas valide. Veuillez vérifier le format (ex: utilisateur@domaine.com)`,
+    errorPassword: "❌ Mot de passe invalide — au moins 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial."
 };
 
 
@@ -144,7 +147,7 @@ function validateInputPassword(input) {
 
     let validate = true;
 
-    if (!emptyField(input) ) { // si une des fonctions renvoie false 
+    if (!emptyField(input) || !sanitizePasswordInput(input) ) { // si une des fonctions renvoie false 
 
         validate = false;  // on invalide
     }
@@ -152,6 +155,22 @@ function validateInputPassword(input) {
     if (validate === true) {
         validateInput(input);
     }
+}
+
+function sanitizePasswordInput(input) {
+
+    let validate = true;
+    const errorDiv = input.parentElement.querySelector('.error');
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#+=^_-])[A-Za-z\d@$!%*?&#+=^_-]{9,}$/;
+
+    if(!passwordRegex.test(input.value)) {
+
+        errorDiv.textContent = errorMessages.errorPassword;     // message d'erreur
+        input.classList.add('invalid');
+        validate = false;
+    }
+
+    return validate;
 }
 
 function sanitizeTelInput(input) { // fonction pour vérifier qu'il s'agit bien d'un numéro de telephone 
