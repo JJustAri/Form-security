@@ -3,8 +3,7 @@ form {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    align-items: end;
-    margin-right: 10%;
+    align-items:center;
 }
 
 form .error {
@@ -37,3 +36,10 @@ input.invalid {
     position: absolute;
     margin-left: 1rem;
 }
+
+.field-container {
+    max-width: 50%;
+    min-width: 50%;
+    text-align: center;
+}
+
