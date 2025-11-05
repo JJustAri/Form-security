@@ -1,5 +1,5 @@
-document.addEventListener("DOMContentLoaded", () => {
-
+export function initModals() {
+  
 const links = document.querySelectorAll("[data-modal]"); // On récupere les liens d'ouverture des modals
 const modalFilter = document.getElementById("modalFilter"); // Et le filtre modal
 
@@ -54,6 +54,4 @@ document.addEventListener('keydown', function (e) {
   }
   }
 })
-
-
-});
+}

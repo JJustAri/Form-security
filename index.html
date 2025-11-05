@@ -7,63 +7,95 @@
     <title>Form-Security</title>
     <link href="assets/css/modal.css" rel="stylesheet">
     <link href="assets/css/form.css" rel="stylesheet">
-    <script src="assets/js/modal.js" defer></script>
-    <script src="assets/js/formValidation.js" defer></script>
+    <link href="assets/css/index.css" rel="stylesheet">
+    <script type="module" src="assets/js/main.js" defer></script>
 </head>
 
 <body>
+    <main>
+        <nav class="nav-bar">
+            <a href="#" data-modal="registrationModal"> Ouvrir la modale d'inscription</a>
+            <a href="#" data-modal="connectionModal"> Ouvrir la modale de connection</a>
+        </nav>
 
-    <a href="#" data-modal="registrationModal"> Ouvrir le modal d'inscription</a>
-    <a href="#" data-modal="connectionModal"> Ouvrir le modal de connection</a>
+        <div class="success-message"><p>Formulaire envoyé avec succès !</p></div>
+        <div class="form-intro">
+            <h2>Formulaire sécurisé en JavaScript</h2>
+            <p>
+                Ce projet met en avant un <strong>formulaire moderne et sécurisé</strong> développé sans aucun
+                framework,
+                uniquement avec <strong>HTML</strong>, <strong>CSS</strong> et <strong>JavaScript natif</strong>.
+            </p>
 
+            <p>
+                L’objectif est de proposer une <strong>expérience utilisateur claire, accessible et protégée</strong> :
+                les champs sont vérifiés en temps réel, les erreurs sont signalées dynamiquement et
+                les données saisies sont nettoyées pour limiter les risques d’attaques XSS.
+            </p>
 
+            <p>
+                Ce projet illustre une approche <strong>simple, réutilisable et pédagogique</strong> de la validation
+                côté client,
+                tout en respectant les bonnes pratiques du web moderne.
+            </p>
 
-    <div id="registrationModal" class="modal">
-        <header>
-            <a href="" data-close>Fermer la modal</a>
-        </header>
+            <ul>
+                <li>✔️ Vérification des champs obligatoires</li>
+                <li>✔️ Validation d’adresse e-mail et de mot de passe</li>
+                <li>✔️ Messages d’erreur dynamiques</li>
+                <li>✔️ Sécurisation basique des entrées utilisateur</li>
+                <li>✔️ Accessibilité et lisibilité renforcées</li>
+            </ul>
+        </div>
 
-        <form id="registrationForm" action="validate.php" method="POST">
-            <div>
-                <label for="firstname"> Prenom :</label>
-                <input type="text" id="firstname" name="prenom" minlength="2"
-                    data-error="Le prenom doit etre au minimum de 2 charactères">
-                <div class="error"></div>
-            </div>
-            <div>
-                <label for="lastname">Nom :</label>
-                <input type="text" name="lastname" id="lastname" minlength="2"
-                    data-error="Le nom doit etre au minimum de 2 charactères">
-                <div class="error"></div>
-            </div>
-            <div>
-                <label for="email">Email :</label>
-                <input type="email" name="email" id="email"
-                    data-error="Le nom doit etre au minimum de 2 charactères">
-                <div class="error"></div>
-            </div>
-            <div>
-                <label for="tel">Telephone :</label>
-                <input type="tel" name="tel" id="tel" minlength="2"
-                    data-error="Le numéro doit comporter 10 charactères">
-                <div class="error"></div>
-            </div>
-            <button type="submit"> Valider</button>
-        </form>
-    </div>
+        <div id="registrationModal" class="modal">
+            <header>
+                <a href="" data-close>Fermer la modale</a>
+            </header>
 
-    <div id="modalFilter"></div>
+            <form id="registrationForm" action="#" method="">
+                <div class="field-container">
+                    <label for="firstname"> Prenom :</label>
+                    <input type="text" id="firstname" name="prenom" minlength="2">
+                    <div class="error"></div>
+                </div>
+                <div class="field-container">
+                    <label for="lastname">Nom :</label>
+                    <input type="text" name="lastname" id="lastname" minlength="2">
+                    <div class="error"></div>
+                </div>
+                <div class="field-container">
+                    <label for="email">Email :</label>
+                    <input type="email" name="email" id="email" placeholder="exemple@domaine.com">
+                    <div class="error"></div>
+                </div>
+                <div class="field-container">
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" name="password" id="password" data-type="password">
+                    <button id="passwordToggle">Afficher</button>
+                    <div class="error"></div>
+                </div>
+                <div class="field-container">
+                    <label for="tel">Telephone :</label>
+                    <input type="tel" name="tel" id="tel" minlength="2">
+                    <div class="error"></div>
+                </div>
+                <button type="submit"> Valider</button>
+            </form>
+        </div>
 
-    <div id="connectionModal" class="modal">
-        <header>
-            <a href="" data-close>Fermer la modal</a>
-        </header>
-        <form action="" method="POST">
+        <div id="modalFilter"></div>
 
-        </form>
-    </div>
+        <div id="connectionModal" class="modal">
+            <header>
+                <a href="" data-close>Fermer la modal</a>
+            </header>
+            <form action="" method="POST">
 
+            </form>
+        </div>
 
+    </main>
 </body>
 
 </html>
